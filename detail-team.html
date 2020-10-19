@@ -42,7 +42,7 @@
       // Register serviceworker
       if('serviceWorker' in navigator) {
          window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/service-worker.js')
+            navigator.serviceWorker.register('service-worker.js')
                .then(() => {
                   console.log('Pendaftaran worker barhasil');
                })
@@ -64,7 +64,7 @@
          if (isFromSaved) {
             btnSave.style.display = 'none';
             btnBack.onclick = () => {
-               btnBack.href = '/index.html#saved'
+               btnBack.href = 'index.html#saved'
             }
 
             getSavedTeamById();
