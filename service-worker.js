@@ -24,9 +24,9 @@ workbox.precaching.precacheAndRoute(
       {url: 'js/api.js', revision: '1'},
       {url: 'js/db.js', revision: '1'},
       {url: 'js/idb.js', revision: '1'},
-      { url: 'https://unpkg.com/snarkdown@1.0.2/dist/snarkdown.umd.js', revision: '1' },
-      { url: 'https://fonts.googleapis.com/icon?family=Material+Icons', revision: '1' },
-      { url: 'https://fonts.gstatic.com/s/materialicons/v53/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2', revision: '1' },
+      {url: 'https://unpkg.com/snarkdown@1.0.2/dist/snarkdown.umd.js', revision: '1' },
+      {url: 'https://fonts.googleapis.com/icon?family=Material+Icons', revision: '1' },
+      {url: 'https://fonts.gstatic.com/s/materialicons/v53/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2', revision: '1' },
    ], {
       ignoreUrlParametersMatching : [/.*/] 
    }
@@ -34,21 +34,21 @@ workbox.precaching.precacheAndRoute(
 
 workbox.routing.registerRoute(
    new RegExp('/css/'),
-      workbox.strategies.cacheFirst({
+      workbox.strategies.staleWhileRevalidate({
          cacheName: 'styles'
       })
 );
 
 workbox.routing.registerRoute(
    new RegExp('/js/'),
-      workbox.strategies.cacheFirst({
+      workbox.strategies.staleWhileRevalidate({
          cacheName: 'javascript'
       })
 );
 
 workbox.routing.registerRoute(
    /\.(?:png|gif|jpg|jpeg|svg)$/,
-   workbox.strategies.cacheFirst({
+   workbox.strategies.staleWhileRevalidate({
       plugins: [
          new workbox.expiration.Plugin({
             maxEntries: 60,
