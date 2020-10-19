@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="description" content="Submission 2">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="theme-color" content="#ffffff"/>
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link rel="stylesheet" href="/css/materialize.min.css">
+   <link rel="stylesheet" href="/css/style.css">
+   <link rel="manifest" href="/manifest.json">
+   <title>Kick News</title>
+</head>
+<body>
+
+   <!-- Navbar -->
+   <nav class="blue darken-4" role="navigation">
+      <div class="nav-wrapper container">
+         <a href="#" class="brand-logo">Kick News</a>
+         <a href="./index.html#team" data-target="mobile-demo" class="sidenav-trigger" id="back"> <i class="material-icons">arrow_back</i></a>
+
+         <ul class="topnav right hide-on-med-and-down"></ul>
+         <ul class="sidenav" id="mobile-demo"></ul>
+      </div>
+   </nav>
+  
+   <div class="container" id="body-detail"></div>
+   <div class="center-align loader" id="loader"></div>
+
+   <!-- Floating save button -->
+	<div class="fixed-action-btn">
+		<a class="btn-floating btn-large blue darken-4" id="save">
+			<i class="large material-icons">save</i>
+		</a>
+  	</div>
+   
+   <script src="/js/materialize.min.js"></script>
+   <script src="/js/api.js"></script>
+   <script src="/js/idb.js"></script>
+	<script src="/js/db.js"></script>
+   <script>
+      // Register serviceworker
+      if('serviceWorker' in navigator) {
+         window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+               .then(() => {
+                  console.log('Pendaftaran worker barhasil');
+               })
+               .catch(() => {
+                  console.log('Pendaftaran ServiceWorker gagal');
+               });
+         });
+      }else{
+         console.log(('ServiceWorker belum didukung browser ini'));
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+         let urlParams = new URLSearchParams(window.location.search);
+         let isFromSaved = urlParams.get('saved');
+         let btnSave = document.getElementById('save');
+         let btnBack = document.getElementById('back');
+         let item;
+
+         if (isFromSaved) {
+            btnSave.style.display = 'none';
+            btnBack.onclick = () => {
+               btnBack.href = '/index.html#saved'
+            }
+
+            getSavedTeamById();
+         } else {
+            item = getTeamById();
+         }
+         
+         btnSave.onclick = () => {
+            item.then( team => {
+               M.toast({html: 'Team saved'})
+               saveForLater(team);
+            });
+         };
+      });
+   </script>
+   
+</body>
+</html>

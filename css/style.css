@@ -1,0 +1,22 @@
+img{
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+img.img-detail {
+   padding-top: 20px;
+}
+
+table {
+   margin: 40px 0;
+}
+
+.loader {
+   position: absolute;
+   margin: auto;
+   top: 50vh;
+   bottom: 50vh;
+   left: 0;
+   right: 0;
+}
